@@ -20,35 +20,6 @@ pc = Pinecone(api_key=environ.get("PINECONE_API_KEY"))
 index = pc.Index("entries-db")
 
 
-@app.route('/put-embeddings', methods=['POST'])
-def put_embeddings():
-    entry = request.form.get('entry')
-    hashed_entry = int(hashlib.sha256(
-        entry.encode('utf-8')).hexdigest(), 16) % 10**8
-
-    embedding = client.embeddings.create(
-        model="text-embedding-ada-002",
-        input=[entry],
-        encoding_format="float"
-    )
-
-    upsert_response = index.upsert(
-        vectors=[
-            {
-                "id": str(hashed_entry),
-                "values": embedding.data[0].embedding,
-                "metadata": {
-                    "entry": entry
-                }
-            }
-        ],
-        namespace="entries_with_embeddings"
-    )
-    print(upsert_response)
-
-    return {"status": "ok"}, 200
-
-
 @app.route('/entry-analysis', methods=['POST'])
 def entry_analysis():
     entry = request.form.get('entry')
@@ -81,6 +52,35 @@ def suggest_continuation():
     res = (completion.choices[0].message.content)
 
     return {"response": res}, 200
+
+
+@app.route('/put-embeddings', methods=['POST'])
+def put_embeddings():
+    entry = request.form.get('entry')
+    hashed_entry = int(hashlib.sha256(
+        entry.encode('utf-8')).hexdigest(), 16) % 10**8
+
+    embedding = client.embeddings.create(
+        model="text-embedding-ada-002",
+        input=[entry],
+        encoding_format="float"
+    )
+
+    upsert_response = index.upsert(
+        vectors=[
+            {
+                "id": str(hashed_entry),
+                "values": embedding.data[0].embedding,
+                "metadata": {
+                    "entry": entry
+                }
+            }
+        ],
+        namespace="entries_with_embeddings"
+    )
+    print(upsert_response)
+
+    return {"status": "ok"}, 200
 
 
 if __name__ == '__main__':
