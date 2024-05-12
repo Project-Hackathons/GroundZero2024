@@ -1,0 +1,9 @@
+blinker==1.7.0
+certifi @ file:///private/tmp/python-certifi-20231211-18102-76ipel/certifi-2023.11.17
+click==8.1.7
+cryptography @ file:///private/tmp/python-cryptography-20231127-6248-fisajh/cryptography-41.0.7
+Flask==3.0.3
+itsdangerous==2.1.2
+Jinja2==3.1.3
+MarkupSafe==2.1.5
+Werkzeug==3.0.2
