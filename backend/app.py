@@ -12,6 +12,21 @@ client = OpenAI(
 )
 
 
+@app.route('/put-embeddings', methods=['POST'])
+def put_embeddings():
+    entry = request.form.get('entry')
+
+    embedding = client.embeddings.create(
+        model="text-embedding-ada-002",
+        input=entry,
+        encoding_format="float"
+    )
+
+    res = (embedding.data[0].embedding)
+
+    return {"status": "ok"}, 200
+
+
 @app.route('/entry-analysis', methods=['POST'])
 def entry_analysis():
     entry = request.form.get('entry')
