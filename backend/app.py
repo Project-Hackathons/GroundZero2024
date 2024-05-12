@@ -1,13 +1,14 @@
 from flask import Flask, request
 from openai import OpenAI
 from dotenv import load_dotenv
+from os import environ
 
 load_dotenv()
 app = Flask(__name__)
 
 client = OpenAI(
-    organization='org-kNwnRBLHkjuC5uYLKFaD9zd2',
-    project='proj_1uDpIUHImYbx2ciPLGumZguw',
+    organization=environ.get("OPENAI_ORG"),
+    project=environ.get("OPENAI_PROJ"),
 )
 
 
