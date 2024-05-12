@@ -7,7 +7,7 @@ app.config.from_pyfile('settings.py')
 
 
 @app.route('/entry-analysis', methods=['POST'])
-def hello():
+def entry_analysis():
     entry = request.form.get('entry')
 
     client = OpenAI(
