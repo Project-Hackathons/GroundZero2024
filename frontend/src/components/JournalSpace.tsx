@@ -1,4 +1,6 @@
+"use client";
 import { Button } from "@chakra-ui/react";
+import { AnalyseJournal } from "@/functions/AnalyseJournal";
 const JournalSpace = () => {
   const journalPrompts = [
     "What are three things you're grateful for today, and why?",
@@ -35,7 +37,11 @@ const JournalSpace = () => {
         className="w-[90%] border-[1px] h-[40000px] border-green-950 rounded p-4"
         placeholder={returnPrompt()}
       ></textarea>
-      <Button variant="outline" className="border-green-500">
+      <Button
+        variant="outline"
+        className="border-green-500"
+        onClick={() => AnalyseJournal()}
+      >
         Submit
       </Button>
     </div>
