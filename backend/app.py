@@ -1,19 +1,19 @@
 from flask import Flask, request
 from openai import OpenAI
+from dotenv import load_dotenv
 
-
+load_dotenv()
 app = Flask(__name__)
-app.config.from_pyfile('settings.py')
+
+client = OpenAI(
+    organization='org-kNwnRBLHkjuC5uYLKFaD9zd2',
+    project='proj_1uDpIUHImYbx2ciPLGumZguw',
+)
 
 
 @app.route('/entry-analysis', methods=['POST'])
 def entry_analysis():
     entry = request.form.get('entry')
-
-    client = OpenAI(
-        organization='org-kNwnRBLHkjuC5uYLKFaD9zd2',
-        project='proj_1uDpIUHImYbx2ciPLGumZguw',
-    )
 
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
@@ -32,11 +32,6 @@ def entry_analysis():
 def suggest_continuation():
     entry = request.form.get('entry')
 
-    client = OpenAI(
-        organization='org-kNwnRBLHkjuC5uYLKFaD9zd2',
-        project='proj_1uDpIUHImYbx2ciPLGumZguw',
-    )
-
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
@@ -51,4 +46,5 @@ def suggest_continuation():
 
 
 if __name__ == '__main__':
+
     app.run(host="0.0.0.0", port=8000, debug=True)
