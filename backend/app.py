@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from openai import OpenAI
 
 
@@ -6,8 +6,10 @@ app = Flask(__name__)
 app.config.from_pyfile('settings.py')
 
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['POST'])
 def hello():
+    entry = request.form.get('entry')
+
     client = OpenAI(
         organization='org-kNwnRBLHkjuC5uYLKFaD9zd2',
         project='proj_1uDpIUHImYbx2ciPLGumZguw',
@@ -17,11 +19,13 @@ def hello():
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": "Hello!"}
+            {"role": "user", "content": entry}
         ]
     )
 
-    return completion.choices[0].message, 200
+    res = (completion.choices[0].message.content)
+
+    return {"response": res}, 200
 
 
 if __name__ == '__main__':
