@@ -2,6 +2,8 @@ from flask import Flask, request
 from openai import OpenAI
 from dotenv import load_dotenv
 from os import environ
+from pinecone import Pinecone
+
 
 load_dotenv()
 app = Flask(__name__)
@@ -10,6 +12,8 @@ client = OpenAI(
     organization=environ.get("OPENAI_ORG"),
     project=environ.get("OPENAI_PROJ"),
 )
+pc = Pinecone(api_key=environ.get("PINECONE_API_KEY"))
+index = pc.Index("entries-db")
 
 
 @app.route('/put-embeddings', methods=['POST'])
@@ -18,11 +22,17 @@ def put_embeddings():
 
     embedding = client.embeddings.create(
         model="text-embedding-ada-002",
-        input=entry,
+        input=[entry],
         encoding_format="float"
     )
 
-    res = (embedding.data[0].embedding)
+    # TODO: update [0] when using multiple entries
+    embedding_vectors = [embedding.data[0].embedding]
+    meta = [entry]
+    to_upsert = zip(0, embedding_vectors, meta)
+
+    print(embedding_vectors)
+    index.upsert(vectors=list(to_upsert))
 
     return {"status": "ok"}, 200
 
