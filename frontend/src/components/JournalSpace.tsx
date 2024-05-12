@@ -1,13 +1,8 @@
 "use client";
-<<<<<<< HEAD
 import { AnalyseJournal } from "@/functions/AnalyseJournal";
 import Image from "next/image";
 import { journalPrompts } from "@/data/JournalPrompts";
 import { useState, useEffect } from "react";
-=======
-import { Button } from "@chakra-ui/react";
-import { AnalyseJournal } from "@/functions/AnalyseJournal";
->>>>>>> 61201c3 (push)
 const JournalSpace = () => {
   const [journalEntry, setJournalEntry] = useState<string>("");
   const [prompt, setPrompt] = useState<string>();
@@ -29,7 +24,6 @@ const JournalSpace = () => {
 
   return (
     <div className="flex flex-col items-center h-[400px] gap-5">
-<<<<<<< HEAD
       <div className="w-full bg-gray-900 flex flex-col text-white text-sm rounded">
         <p className="p-3 antialiased">{`AI Prompt: ${prompt}`}</p>
         <textarea
@@ -56,19 +50,6 @@ const JournalSpace = () => {
           Submit
         </button>
       </div>
-=======
-      <textarea
-        className="w-[90%] border-[1px] h-[40000px] border-green-950 rounded p-4"
-        placeholder={returnPrompt()}
-      ></textarea>
-      <Button
-        variant="outline"
-        className="border-green-500"
-        onClick={() => AnalyseJournal()}
-      >
-        Submit
-      </Button>
->>>>>>> 61201c3 (push)
     </div>
   );
 };

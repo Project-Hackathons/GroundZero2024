@@ -1,15 +1,8 @@
 "use client";
-<<<<<<< HEAD
 export async function AnalyseJournal(journalEntry: string) {
   const url = "http://localhost:8000/entry-analysis";
   const formData = new FormData();
   formData.append("entry", journalEntry);
-=======
-export async function AnalyseJournal() {
-  const url = "http://localhost:8000/entry-analysis";
-  const formData = new FormData();
-  formData.append("entry", "hello");
->>>>>>> 61201c3 (push)
 
   const response = await fetch(url, {
     method: "POST",
