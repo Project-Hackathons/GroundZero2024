@@ -24,7 +24,7 @@ const JournalSpace = () => {
 
   return (
     <div className="flex flex-col items-center h-[400px] gap-5">
-      <div className="w-full bg-gray-900 flex flex-col text-white text-sm rounded">
+      <div className="w-full bg-indigo-950 flex flex-col text-white text-sm rounded">
         <p className="p-3 antialiased">{`AI Prompt: ${prompt}`}</p>
         <textarea
           className="bg-inherit w-full h-[400px] rounded rounded-t-none border-t-[1px] border-gray-400 p-4 resize-none outline-none text-white caret-indigo-600"
