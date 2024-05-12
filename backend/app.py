@@ -32,38 +32,16 @@ def put_embeddings():
     upsert_response = index.upsert(
         vectors=[
             {
-                "id": "vec1",
-                "values": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
-                "sparse_values": {
-                    "indices": [1, 5],
-                    "values": [0.5, 0.5]
-                },
+                "id": "test_id",
+                "values": embedding.data[0].embedding,
                 "metadata": {
-                    "genre": "drama"
-                }
-            },
-            {
-                "id": "vec2",
-                "values": [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
-                "sparse_values": {
-                    "indices": [5, 6],
-                    "values": [0.4, 0.5]
-                },
-                "metadata": {
-                    "genre": "action"
+                    "entry_test": "drama"
                 }
             }
         ],
         namespace="example-namespace"
     )
-
-    # TODO: update [0] when using multiple entries
-    embedding_vectors = [embedding.data[0].embedding]
-    meta = [entry]
-    to_upsert = zip(0, embedding_vectors, meta)
-
-    print(embedding_vectors)
-    index.upsert(vectors=list(to_upsert))
+    print(upsert_response)
 
     return {"status": "ok"}, 200
 
