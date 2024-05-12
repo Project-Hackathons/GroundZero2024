@@ -3,10 +3,13 @@ from openai import OpenAI
 from dotenv import load_dotenv
 from os import environ
 from pinecone import Pinecone
+from flask_cors import CORS, cross_origin
 
 
 load_dotenv()
 app = Flask(__name__)
+CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 client = OpenAI(
     organization=environ.get("OPENAI_ORG"),
@@ -24,6 +27,34 @@ def put_embeddings():
         model="text-embedding-ada-002",
         input=[entry],
         encoding_format="float"
+    )
+
+    upsert_response = index.upsert(
+        vectors=[
+            {
+                "id": "vec1",
+                "values": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
+                "sparse_values": {
+                    "indices": [1, 5],
+                    "values": [0.5, 0.5]
+                },
+                "metadata": {
+                    "genre": "drama"
+                }
+            },
+            {
+                "id": "vec2",
+                "values": [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
+                "sparse_values": {
+                    "indices": [5, 6],
+                    "values": [0.4, 0.5]
+                },
+                "metadata": {
+                    "genre": "action"
+                }
+            }
+        ],
+        namespace="example-namespace"
     )
 
     # TODO: update [0] when using multiple entries
