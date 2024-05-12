@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from openai import OpenAI
 from dotenv import load_dotenv
 from os import environ
@@ -81,6 +81,28 @@ def put_embeddings():
     print(upsert_response)
 
     return {"status": "ok"}, 200
+
+
+@app.route('/summarise-events', methods=['POST'])
+def summarise_events():
+    query = request.form.get('query')
+
+    print(query_embeddings(query).matches)
+
+    return "True"
+
+
+def query_embeddings(query):
+    embedding = client.embeddings.create(
+        model="text-embedding-ada-002",
+        input=[query],
+        encoding_format="float"
+    )
+    res = index.query(
+        namespace="entries_with_embeddings",
+        vector=[embedding.data[0].embedding],
+        top_k=5, include_metadata=True)
+    return res
 
 
 if __name__ == '__main__':
