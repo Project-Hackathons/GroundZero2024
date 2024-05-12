@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from os import environ
 from pinecone import Pinecone
 from flask_cors import CORS, cross_origin
+import hashlib
 
 
 load_dotenv()
@@ -22,6 +23,8 @@ index = pc.Index("entries-db")
 @app.route('/put-embeddings', methods=['POST'])
 def put_embeddings():
     entry = request.form.get('entry')
+    hashed_entry = int(hashlib.sha256(
+        entry.encode('utf-8')).hexdigest(), 16) % 10**8
 
     embedding = client.embeddings.create(
         model="text-embedding-ada-002",
@@ -32,7 +35,7 @@ def put_embeddings():
     upsert_response = index.upsert(
         vectors=[
             {
-                "id": "test_id",
+                "id": str(hashed_entry),
                 "values": embedding.data[0].embedding,
                 "metadata": {
                     "entry": entry
