@@ -3,10 +3,13 @@ from openai import OpenAI
 from dotenv import load_dotenv
 from os import environ
 from pinecone import Pinecone
-
+from flask_cors import CORS, cross_origin
 
 load_dotenv()
 app = Flask(__name__)
+CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 client = OpenAI(
     organization=environ.get("OPENAI_ORG"),
