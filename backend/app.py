@@ -6,7 +6,7 @@ app = Flask(__name__)
 app.config.from_pyfile('settings.py')
 
 
-@app.route('/', methods=['POST'])
+@app.route('/entry-analysis', methods=['POST'])
 def hello():
     entry = request.form.get('entry')
 
