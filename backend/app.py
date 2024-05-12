@@ -35,7 +35,7 @@ def put_embeddings():
                 "id": "test_id",
                 "values": embedding.data[0].embedding,
                 "metadata": {
-                    "entry": "drama"
+                    "entry": entry
                 }
             }
         ],
