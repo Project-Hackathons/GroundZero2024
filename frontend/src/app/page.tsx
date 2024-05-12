@@ -1,11 +1,19 @@
-import Header from "@/components/Header";
-import JournalSpace from "@/components/JournalSpace";
+import React from "react";
+import Header from "@/components/main/Header";
+import Card from "@/components/main/Card";
+import { JournalEntries } from "@/data/JournalEntries";
+import AddJournalBtn from "@/components/main/AddJournalBtn";
 
-export default function Home() {
+const page = () => {
   return (
-    <div className="bg-green-50">
+    <div className="flex flex-col items-center h-screen overflow-scroll bg-gradient-to-b from-violet-950 to-indigo-300 subpixel-antialiased gap-4">
       <Header />
-      <JournalSpace />
+      {JournalEntries.map((value, i) => {
+        return <Card entry={value.entry} date={value.date} key={i} />;
+      })}
+      <AddJournalBtn />
     </div>
   );
-}
+};
+
+export default page;

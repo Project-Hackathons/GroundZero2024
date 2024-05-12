@@ -1,0 +1,17 @@
+export const journalPrompts = [
+  "What brings you joy?",
+  "Describe feeling understood.",
+  "How do you cope with overwhelm?",
+  "Define your success.",
+  "What values guide you?",
+  "Share a recent accomplishment.",
+  "What fears hold you back?",
+  "Describe a fulfilling interaction.",
+  "How do you nurture yourself?",
+  "Reflect on resilience.",
+  "Habits for stability?",
+  "Learnings from mistakes?",
+  "Prioritize self-care.",
+  "Role of gratitude?",
+  "Current challenge and compassion?",
+];
