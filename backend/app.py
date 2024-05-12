@@ -39,7 +39,7 @@ def put_embeddings():
                 }
             }
         ],
-        namespace="example-namespace"
+        namespace="entries_with_embeddings"
     )
     print(upsert_response)
 
