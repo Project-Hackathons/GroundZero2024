@@ -57,25 +57,31 @@ def suggest_continuation():
 @app.route('/put-embeddings', methods=['POST'])
 def put_embeddings():
     entry = request.form.get('entry')
-    hashed_entry = int(hashlib.sha256(
-        entry.encode('utf-8')).hexdigest(), 16) % 10**8
+    entries = entry.split('. ')
 
-    embedding = client.embeddings.create(
-        model="text-embedding-ada-002",
-        input=[entry],
-        encoding_format="float"
-    )
-
-    upsert_response = index.upsert(
-        vectors=[
+    combined_entries = []
+    overlap = 2
+    for i in range(0, len(entries) - overlap + 1, 2):
+        combined_entry = '. '.join(entries[i:i+overlap+1])
+        hashed_entry = int(hashlib.sha256(
+            combined_entry.encode('utf-8')).hexdigest(), 16) % 10**8
+        embedding = client.embeddings.create(  # TODO: create all embeddings at once
+            model="text-embedding-ada-002",
+            input=combined_entry,
+            encoding_format="float"
+        )
+        combined_entries.append(
             {
                 "id": str(hashed_entry),
                 "values": embedding.data[0].embedding,
                 "metadata": {
-                    "entry": entry
+                    "entry": combined_entry
                 }
             }
-        ],
+        )
+
+    upsert_response = index.upsert(
+        vectors=combined_entries,
         namespace="entries_with_embeddings"
     )
     print(upsert_response)
