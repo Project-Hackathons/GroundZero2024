@@ -29,7 +29,7 @@ supabase: Client = create_client(environ.get(
 prompts = prompt()
 
 
-@app.route('/fetch-entries', methods=['POST'])
+@app.route('/fetch-entries', methods=['GET'])
 def fetch_entries():
     response = supabase.table('entries').select("*").execute()
 
