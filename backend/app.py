@@ -64,7 +64,7 @@ def suggest_continuation():
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You are a professional journal entry writer. Your friend is having trouble continuing his journal entry. Give 3 actionable suggestions on what he can write about."},
+            {"role": "system", "content": "You are a professional journal entry writer. Your friend is having trouble continuing his journal entry. Give 1 actionable prompt on what he can write about. Keep the prompt short. Do not prepend any addtional words"},
             {"role": "user", "content": entry}
         ]
     )
