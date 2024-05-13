@@ -23,6 +23,7 @@ const JournalSpace = () => {
   const handleSubmit = async () => {
     setLoading(true);
     const data = await AnalyseJournal(journalEntry);
+    console.log(data.response.mood);
     setLoading(false);
     //setJournalEntry to none
     //start loading

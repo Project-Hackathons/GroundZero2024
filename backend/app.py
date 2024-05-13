@@ -5,6 +5,8 @@ from os import environ
 from pinecone import Pinecone
 from flask_cors import CORS, cross_origin
 import hashlib
+from prompt import prompt
+import json
 
 
 load_dotenv()
@@ -19,6 +21,8 @@ client = OpenAI(
 pc = Pinecone(api_key=environ.get("PINECONE_API_KEY"))
 index = pc.Index("entries-db")
 
+#load prompts
+prompts = prompt()
 
 @app.route('/entry-analysis', methods=['POST'])
 def entry_analysis():
@@ -27,14 +31,14 @@ def entry_analysis():
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You are a therapist reading one of your client's journal entry. Based on his mood and activities, recommend him 3 activities to do."},
+            {"role": "system", "content": prompts["entry_analysis"]},
             {"role": "user", "content": entry}
         ]
     )
 
     res = (completion.choices[0].message.content)
 
-    return {"response": res}, 200
+    return {"response": json.loads(res)}, 200
 
 
 @app.route('/suggest-continuation', methods=['POST'])
@@ -44,14 +48,14 @@ def suggest_continuation():
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You are a professional journal entry writer. Your friend is having trouble continuing his journal entry. Give 1 actionable prompt on what he can write about. Keep the prompt short. Do not prepend any addtional words"},
+            {"role": "system", "content": prompts["suggest_continuation"]},
             {"role": "user", "content": entry}
         ]
     )
 
     res = (completion.choices[0].message.content)
 
-    return {"response": res}, 200
+    return {"response": json.loads(res)}, 200
 
 
 @app.route('/put-embeddings', methods=['POST'])
