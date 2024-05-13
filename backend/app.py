@@ -7,6 +7,7 @@ from flask_cors import CORS, cross_origin
 import hashlib
 from prompt import prompt
 import json
+from supabase import create_client, Client
 
 
 load_dotenv()
@@ -20,6 +21,8 @@ client = OpenAI(
 )
 pc = Pinecone(api_key=environ.get("PINECONE_API_KEY"))
 index = pc.Index("entries-db")
+
+supabase: Client = create_client(environ.get("SUPABASE_URL"), environ.get("SUPABASE_KEY"))
 
 #load prompts
 prompts = prompt()
