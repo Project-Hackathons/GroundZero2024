@@ -43,7 +43,7 @@ def push_entry():
     data, count = supabase.table('entries').insert(
         {"entry": entry}).execute()
 
-    return {"status": "ok"}, 200
+    return {"data": data, "count": count}, 200
 
 
 @app.route('/entry-analysis', methods=['POST'])
