@@ -17,7 +17,7 @@ def prompt():
         Then and suggest 3 activites for the client. Keep the suggestions short.
         Your output should be a string that can be converted to JSON.
 
-        The first key is "mood". The value should a string strictly from the list above. 
+        The first key is "mood". The value should a string from the following list: [Love, Fear, Anger, Sadness, Surprise, Joy]. 
         The second key is "advice". The value should be the response of the therapist.
         The third key should be "activity1". The value should be a string that starts with "You may consider ..."
         The fourth and fourth keys are "acitvity2" and activity3". The value should follow the same format as "activity1"

@@ -1,18 +1,21 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import Header from "@/components/main/Header";
-import Card from "@/components/main/Card";
-import { JournalEntries } from "@/data/JournalEntries";
 import AddJournalBtn from "@/components/main/AddJournalBtn";
 import JournalFooter from "@/components/journal/JournalFooter";
+import CardList from "@/components/main/CardList";
+import { useState } from "react";
+import LoadingScreen from "@/components/journal/LoadingScreen";
 const page = () => {
+  // eslint-disable-next-line
+  const [loading, setLoading] = useState(true);
   return (
     <div className="flex flex-col items-center h-screen overflow-scroll bg-gradient-to-b from-violet-950 to-indigo-300 subpixel-antialiased gap-4">
       <Header />
-      {JournalEntries.map((value, i) => {
-        return <Card entry={value.entry} date={value.date} key={i} />;
-      })}
+      <CardList setLoading={setLoading} />
       <AddJournalBtn />
       <JournalFooter />
+      {loading && <LoadingScreen />}
     </div>
   );
 };
