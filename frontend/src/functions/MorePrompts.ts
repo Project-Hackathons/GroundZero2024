@@ -1,5 +1,5 @@
-export async function AnalyseJournal(journalEntry: string) {
-  const url = "http://localhost:8000/entry-analysis";
+export async function MorePrompts(journalEntry: string) {
+  const url = "http://localhost:8000/suggest-continuation";
   const formData = new FormData();
   formData.append("entry", journalEntry);
 
