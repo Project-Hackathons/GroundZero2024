@@ -120,16 +120,49 @@ def summarise_events():
     query = request.form.get('query')
 
     # generate questions a therapist would ask a patient
+    completion = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        temperature=2,
+        messages=[
+            {"role": "system", "content": "You are a world-class therapist who enjoys helping people."},
+            {"role": "user",
+                "content": "Generate three questions a therapist might ask one of their clients to learn more about them. Your response should be in a JSON object. {questions: [Array of questions]}"}
+        ]
+    )
+    questions_array = dict.fromkeys(json.loads(
+        completion.choices[0].message.content)["questions"])
+
     # fetch "responses" from pinecone
+    for key in questions_array:
+        questions_array[key] = [match['metadata']['entry']
+                                for match in query_embeddings(key).matches]
+
+    parsed_questions_array = json.dumps(questions_array)
+
     # there are some of the things that happened to the patient - what areas should he work on?
+    completion = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a world-class therapist who enjoys helping people."},
+            {"role": "user",
+                "content":
+                    f"""
+                    The below JSON object shows an exchange between you and one of your clients about his experience. You are the therapist. Write as if you were talking to your client.
+                    {parsed_questions_array}
+                    From this exhance, generate three LONG TERM actions that your client can take to achieve better mental health. Remember to contextualise EACH AND EVERY piece of advice to your client's experience. Contextualisation is VERY IMPORTANT.
+                    """
+             }
+        ]
+    )
+
     # research based on OTHER vectorDB (expert opinions), google search (if not enough info)
     # fetch "similar experience" from pinecone
     # contextualise each AOI to the "similar experience"
     # summarise
 
-    print(query_embeddings(query).matches)
+    # print(query_embeddings(query).matches)
 
-    return "True"
+    return {"response": completion.choices[0].message.content}
 
 
 def query_embeddings(query):
