@@ -1,5 +1,5 @@
-export async function MorePrompts(journalEntry: string) {
-  const url = "https://mood-hjvk7pksba-uc.a.run.app/suggest-continuation";
+export async function PostEntry(journalEntry: string) {
+  const url = "https://mood-hjvk7pksba-uc.a.run.app/push-entry";
   const formData = new FormData();
   formData.append("entry", journalEntry);
 
@@ -12,5 +12,6 @@ export async function MorePrompts(journalEntry: string) {
     throw new Error("Failed to fetch data");
   }
   const data = await response.json();
+  console.log(data);
   return data;
 }

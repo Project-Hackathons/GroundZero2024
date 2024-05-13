@@ -5,6 +5,7 @@ import { journalPrompts } from "@/data/JournalPrompts";
 import { useState, useEffect } from "react";
 import LoadingScreen from "./LoadingScreen";
 import { MorePrompts } from "@/functions/MorePrompts";
+import { PostEntry } from "@/functions/Postentry";
 
 const JournalSpace = ({ setLoadHome, setGptResponse }: any) => {
   const [journalEntry, setJournalEntry] = useState<string>("");
@@ -22,6 +23,7 @@ const JournalSpace = ({ setLoadHome, setGptResponse }: any) => {
 
   const handleSubmit = async () => {
     setLoadHome(true);
+    PostEntry(journalEntry.replaceAll("\n", "<br/>"));
     const data = await AnalyseJournal(journalEntry);
     setGptResponse(data.response);
     console.log(data.response);
@@ -30,6 +32,7 @@ const JournalSpace = ({ setLoadHome, setGptResponse }: any) => {
 
   const handlePrompt = async () => {
     setLoading(true);
+    console.log(journalEntry.replaceAll("\n", "<br/>"));
     const data = await MorePrompts(journalEntry);
     setPrompt(data.response);
     setLoading(false);
