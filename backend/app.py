@@ -37,6 +37,15 @@ def fetch_entries():
     return {"responses": response.data}, 200
 
 
+@app.route('/push-entry', methods=['POST'])
+def push_entry():
+    entry = request.form.get('entry')
+    data, count = supabase.table('entries').insert(
+        {"entry": entry}).execute()
+
+    return {"status": "ok"}, 200
+
+
 @app.route('/entry-analysis', methods=['POST'])
 def entry_analysis():
     entry = request.form.get('entry')
