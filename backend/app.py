@@ -22,10 +22,20 @@ client = OpenAI(
 pc = Pinecone(api_key=environ.get("PINECONE_API_KEY"))
 index = pc.Index("entries-db")
 
-supabase: Client = create_client(environ.get("SUPABASE_URL"), environ.get("SUPABASE_KEY"))
+supabase: Client = create_client(environ.get(
+    "SUPABASE_URL"), environ.get("SUPABASE_KEY"))
 
-#load prompts
+# load prompts
 prompts = prompt()
+
+
+@app.route('/fetch-entries', methods=['POST'])
+def fetch_entries():
+    response = supabase.table('entries').select("*").execute()
+
+    print(response.data)
+    return {"responses": response.data}, 200
+
 
 @app.route('/entry-analysis', methods=['POST'])
 def entry_analysis():
