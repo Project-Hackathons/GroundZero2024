@@ -93,7 +93,7 @@ def put_embeddings():
 def summarise_events():
     query = request.form.get('query')
 
-    # generate questions a therapist would ask a patient 
+    # generate questions a therapist would ask a patient
     # fetch "responses" from pinecone
     # there are some of the things that happened to the patient - what areas should he work on?
     # research based on OTHER vectorDB (expert opinions), google search (if not enough info)
