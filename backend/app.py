@@ -55,7 +55,7 @@ def suggest_continuation():
 
     res = (completion.choices[0].message.content)
 
-    return {"response": json.loads(res)}, 200
+    return {"response": res}, 200
 
 
 @app.route('/put-embeddings', methods=['POST'])

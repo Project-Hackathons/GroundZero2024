@@ -14,7 +14,7 @@ def prompt():
         The list is [Love, Fear, Anger, Sadness, Surprise, Joy].
         Based on your professional knowledge as well as your understanding of what is best for the client,
         acknowledge their feelings, give him/her a word of advice.
-        Then and suggest 3 activites for the client. 
+        Then and suggest 3 activites for the client. Keep the suggestions short.
         Your output should be a string that can be converted to JSON.
 
         The first key is "mood". The value should a string strictly from the list above. 
@@ -22,11 +22,7 @@ def prompt():
         The third key should be "activity1". The value should be a string that starts with "You may consider ..."
         The fourth and fourth keys are "acitvity2" and activity3". The value should follow the same format as "activity1"
         The fifth key is "advice". The value should be an actionable advice presented in a comforting tone
-        There should be no more than five key-value pairs. 
-
-
-
-"""
+        There should be no more than five key-value pairs. """
     }
     return prompt
 

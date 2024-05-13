@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import LoadingScreen from "./LoadingScreen";
 import { MorePrompts } from "@/functions/MorePrompts";
 
-const JournalSpace = () => {
+const JournalSpace = ({ setLoadHome, setGptResponse }: any) => {
   const [journalEntry, setJournalEntry] = useState<string>("");
   const [prompt, setPrompt] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -21,12 +21,11 @@ const JournalSpace = () => {
   }, []);
 
   const handleSubmit = async () => {
-    setLoading(true);
+    setLoadHome(true);
     const data = await AnalyseJournal(journalEntry);
-    console.log(data.response.mood);
-    setLoading(false);
-    //setJournalEntry to none
-    //start loading
+    setGptResponse(data.response);
+    console.log(data.response);
+    setLoadHome(false);
   };
 
   const handlePrompt = async () => {
@@ -34,12 +33,10 @@ const JournalSpace = () => {
     const data = await MorePrompts(journalEntry);
     setPrompt(data.response);
     setLoading(false);
-    //setJournalEntry to none
-    //start loading
   };
 
   return (
-    <div className="mx-6 flex flex-col items-center h-[400px] gap-5">
+    <div className="mx-6 h-fit flex flex-col items-center h-[400px] gap-5">
       <div className="w-full h-fit bg-indigo-950 flex flex-col text-white text-sm rounded relative">
         {loading && <LoadingScreen />}
         <p className="p-3 antialiased">{`AI Prompt: ${prompt}`}</p>
@@ -72,22 +69,3 @@ const JournalSpace = () => {
 };
 
 export default JournalSpace;
-
-// "use client";
-// export async function AnalyseJournal() {
-//   const url = "http://localhost:8000/entry-analysis";
-//   const formData = new FormData();
-//   formData.append("entry", "hello");
-
-//   const response = await fetch(url, {
-//     method: "POST",
-//     body: formData,
-//   });
-
-//   if (!response.ok) {
-//     throw new Error("Failed to fetch data");
-//   }
-//   const data = await response.json();
-//   console.log(data);
-//   return data;
-// }
