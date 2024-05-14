@@ -1,15 +1,17 @@
+import React from "react";
 import Link from "next/link";
-const Header = () => {
+
+const ReviewHeader = () => {
   return (
     <div className="w-full pt-10 px-6 self-start flex justify-between">
-      <h1 className="text-white text-3xl font-bold">Journal</h1>
-      <Link href="/review">
+      <h1 className="text-white text-3xl font-bold">Review</h1>
+      <Link href="/">
         <button className="bg-purple-800 text-white py-2 px-6 rounded-2xl font-semibold">
-          Week&#39;s Review
+          Back
         </button>
       </Link>
     </div>
   );
 };
 
-export default Header;
+export default ReviewHeader;

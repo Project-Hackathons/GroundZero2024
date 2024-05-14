@@ -143,13 +143,19 @@ def summarise_events():
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You are a world-class therapist who enjoys helping people."},
+            {"role": "system", 
+             "content": 
+             """You are a world-class therapist who enjoys helping people.
+             Indicate the start of a new paragraph with <br/><br/> 
+             Indicate the words you want to bold with <b></b>
+             """},
             {"role": "user",
                 "content":
                     f"""
-                    The below JSON object shows an exchange between you and one of your clients about his experience. You are the therapist. Write as if you were talking to your client.
+                    The below JSON object shows an exchange between you and one of your clients about his experience. You are the therapist. 
                     {parsed_questions_array}
-                    From this exhance, generate three LONG TERM actions that your client can take to achieve better mental health. Remember to contextualise EACH AND EVERY piece of advice to your client's experience. Contextualisation is VERY IMPORTANT.
+                    From this exhance, generate three LONG TERM actions that your client can take to achieve better mental health. 
+                    Remember to contextualise EACH AND EVERY piece of advice to your client's experience. Contextualisation is VERY IMPORTANT.
                     """
              }
         ]

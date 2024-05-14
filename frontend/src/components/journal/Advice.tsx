@@ -24,7 +24,7 @@ const Advice = ({ gptResponse }: any) => {
       </p>
       <audio
         controls
-        src={`/meditation/${gptResponse.mood}.MP3`}
+        src={`/${gptResponse.mood}.mp3`}
         className="mt-3 h-[35px]"
       >
         Your browser does not support the

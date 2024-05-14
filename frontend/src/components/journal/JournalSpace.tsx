@@ -3,7 +3,7 @@ import { AnalyseJournal } from "@/functions/AnalyseJournal";
 import Image from "next/image";
 import { journalPrompts } from "@/data/JournalPrompts";
 import { useState, useEffect } from "react";
-import LoadingScreen from "./LoadingScreen";
+import LoadingScreen from "../LoadingScreen";
 import { MorePrompts } from "@/functions/MorePrompts";
 import { PostEntry } from "@/functions/Postentry";
 
@@ -11,6 +11,7 @@ const JournalSpace = ({ setLoadHome, setGptResponse }: any) => {
   const [journalEntry, setJournalEntry] = useState<string>("");
   const [prompt, setPrompt] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [submitted, setSubmitted] = useState(false);
   useEffect(() => {
     function getRandomInt(max: number) {
       return Math.floor(Math.random() * max);
@@ -22,12 +23,16 @@ const JournalSpace = ({ setLoadHome, setGptResponse }: any) => {
   }, []);
 
   const handleSubmit = async () => {
+    if (submitted) {
+      return;
+    }
     setLoadHome(true);
     PostEntry(journalEntry.replaceAll("\n", "<br/>"));
     const data = await AnalyseJournal(journalEntry);
     setGptResponse(data.response);
     console.log(data.response);
     setLoadHome(false);
+    setSubmitted(true);
   };
 
   const handlePrompt = async () => {
@@ -39,7 +44,7 @@ const JournalSpace = ({ setLoadHome, setGptResponse }: any) => {
   };
 
   return (
-    <div className="mx-6 h-fit flex flex-col items-center h-[400px] gap-5">
+    <div className="mx-6 h-fit flex flex-col items-center gap-5">
       <div className="w-full h-fit bg-indigo-950 flex flex-col text-white text-sm rounded relative">
         {loading && <LoadingScreen />}
         <p className="p-3 antialiased">{`AI Prompt: ${prompt}`}</p>

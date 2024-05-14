@@ -1,11 +1,11 @@
 "use client";
 import JournalHeader from "@/components/journal/JournalHeader";
 import JournalSpace from "@/components/journal/JournalSpace";
-import LoadingScreen from "@/components/journal/LoadingScreen";
+import LoadingScreen from "@/components/LoadingScreen";
 import Emoji from "@/components/journal/Emoji";
-import JournalFooter from "@/components/journal/JournalFooter";
+import JournalFooter from "@/components/JournalFooter";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Advice from "@/components/journal/Advice";
 
 type gptResponseType = {
@@ -26,9 +26,20 @@ export default function Home() {
     activity3: "",
   });
 
+  useEffect(() => {
+    scroll();
+  }, [gptResponse]);
+
+  const scroll = () => {
+    window.scrollTo({
+      top: 610,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <>
-      <div className="h-screen overflow-scroll bg-gradient-to-b from-violet-950 to-indigo-300 flex flex-col justify-start gap-3 md:hidden">
+      <div className="min-h-screen bg-gradient-to-b from-violet-950 to-indigo-300 flex flex-col justify-start gap-3 md:hidden">
         <JournalHeader />
         <JournalSpace
           setLoadHome={setLoadHome}
