@@ -9,22 +9,22 @@ import LoadingScreen from "@/components/LoadingScreen";
 const Page = () => {
   const [loading, setLoading] = useState(true);
   return (
-    <>
-      <div className="flex flex-col items-center min-h-screen bg-gradient-to-b from-violet-950 to-indigo-300 subpixel-antialiased gap-4 md:hidden">
+    <div className="flex justify-center">
+      <div className="flex flex-col items-center min-h-screen bg-gradient-to-b from-violet-950 to-indigo-300 subpixel-antialiased gap-4 max-w-[450px] w-full">
         <Header />
         <CardList setLoading={setLoading} />
         <AddJournalBtn />
         <JournalFooter />
         {loading && <LoadingScreen />}
       </div>
-      <div className="text-center mt-6 text-lg font-semibold hidden md:block">
+      {/* <div className="text-center mt-6 text-lg font-semibold hidden md:block">
         <p>
           Hey there, this application is currently not optimised for large
           screens.
         </p>
         <p>Please use your phone to see the full features of this app</p>
-      </div>
-    </>
+      </div> */}
+    </div>
   );
 };
 

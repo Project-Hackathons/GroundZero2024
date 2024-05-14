@@ -38,8 +38,8 @@ export default function Home() {
   };
 
   return (
-    <>
-      <div className="min-h-screen bg-gradient-to-b from-violet-950 to-indigo-300 flex flex-col justify-start gap-3 md:hidden">
+    <div className="flex justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-violet-950 to-indigo-300 flex flex-col justify-start gap-3 max-w-[450px] w-full">
         <JournalHeader />
         <JournalSpace
           setLoadHome={setLoadHome}
@@ -51,13 +51,13 @@ export default function Home() {
 
         {loadHome && <LoadingScreen />}
       </div>
-      <div className="text-center mt-6 text-lg font-semibold hidden md:block">
+      {/* <div className="text-center mt-6 text-lg font-semibold hidden md:block">
         <p>
           Hey there, this application is currently not optimised for large
           screens.
         </p>
         <p>Please use your phone to see the full features of this app</p>
-      </div>
-    </>
+      </div> */}
+    </div>
   );
 }
