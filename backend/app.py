@@ -31,7 +31,7 @@ prompts = prompt()
 
 @app.route('/fetch-entries', methods=['GET'])
 def fetch_entries():
-    response = supabase.table('entries').select("*").execute()
+    response = supabase.table('entries').select("*").limit(10).execute()
 
     print(response.data)
     return {"responses": response.data}, 200
