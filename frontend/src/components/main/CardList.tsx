@@ -23,7 +23,7 @@ const CardList = ({ setLoading }: any) => {
         response.push({ entry: value.entry, date: date });
       });
 
-      setDatabaseEntries(response.reverse());
+      setDatabaseEntries(response);
       setLoading(false);
     };
     handleRetrieveEntry();
@@ -35,9 +35,9 @@ const CardList = ({ setLoading }: any) => {
         databaseEntries.map((value, i) => {
           return <Card entry={value.entry} date={value.date} key={i + 10} />;
         })}
-      {JournalEntries.map((value, i) => {
+      {/* {JournalEntries.map((value, i) => {
         return <Card entry={value.entry} date={value.date} key={i} />;
-      })}
+      })} */}
     </>
   );
 };
