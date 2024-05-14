@@ -27,14 +27,26 @@ export default function Home() {
   });
 
   return (
-    <div className="h-screen overflow-scroll bg-gradient-to-b from-violet-950 to-indigo-300 flex flex-col justify-start gap-3">
-      <JournalHeader />
-      <JournalSpace setLoadHome={setLoadHome} setGptResponse={setGptResponse} />
-      {gptResponse.mood !== "" && <Emoji mood={gptResponse.mood} />}
-      {gptResponse.mood !== "" && <Advice gptResponse={gptResponse} />}
-      <JournalFooter />
+    <>
+      <div className="h-screen overflow-scroll bg-gradient-to-b from-violet-950 to-indigo-300 flex flex-col justify-start gap-3 md:hidden">
+        <JournalHeader />
+        <JournalSpace
+          setLoadHome={setLoadHome}
+          setGptResponse={setGptResponse}
+        />
+        {gptResponse.mood !== "" && <Emoji mood={gptResponse.mood} />}
+        {gptResponse.mood !== "" && <Advice gptResponse={gptResponse} />}
+        <JournalFooter />
 
-      {loadHome && <LoadingScreen />}
-    </div>
+        {loadHome && <LoadingScreen />}
+      </div>
+      <div className="text-center mt-6 text-lg font-semibold hidden md:block">
+        <p>
+          Hey there, this application is currently not optimised for large
+          screens.
+        </p>
+        <p>Please use your phone to see the full features of this app</p>
+      </div>
+    </>
   );
 }
