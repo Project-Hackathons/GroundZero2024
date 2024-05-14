@@ -31,7 +31,8 @@ prompts = prompt()
 
 @app.route('/fetch-entries', methods=['GET'])
 def fetch_entries():
-    response = supabase.table('entries').select("*").limit(10).execute()
+    response = supabase.table('entries').select(
+        "*").order('id', desc=True).limit(10).execute()
 
     print(response.data)
     return {"responses": response.data}, 200
@@ -227,6 +228,8 @@ def summarise_events():
              """You are a world-class therapist who enjoys helping people.
              Indicate the start of a new paragraph with <br/><br/> 
              Indicate the words you want to bold with <b></b>
+             Do have new paragraphs and bold to make the output presentable. 
+             Begin each new pointer with a new paragraph.
              """},
             {"role": "user",
                 "content":
