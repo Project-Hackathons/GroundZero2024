@@ -7,7 +7,7 @@ import type { Viewport } from "next";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "RocketJournal",
+  title: "RocketCoach",
   description: "Your pefect lifecoach in your pocket",
 };
 

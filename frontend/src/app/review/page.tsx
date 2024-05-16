@@ -31,7 +31,7 @@ const Page = () => {
 
   return (
     <div className="flex justify-center">
-      <div className="flex flex-col min-h-screen bg-gradient-to-b from-violet-950 to-indigo-300 subpixel-antialiased gap-4 max-w-[450px] w-full">
+      <div className="flex flex-col min-h-screen bg-gradient-to-b from-violet-800 to-violet-500 subpixel-antialiased gap-4 max-w-[450px] w-full">
         <ReviewHeader />
         <TextBlock review={review} />
         <JournalFooter />

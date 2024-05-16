@@ -39,7 +39,7 @@ export default function Home() {
 
   return (
     <div className="flex justify-center">
-      <div className="min-h-screen bg-gradient-to-b from-violet-950 to-indigo-300 flex flex-col justify-start gap-3 max-w-[450px] w-full">
+      <div className="min-h-screen bg-gradient-to-b from-violet-800 to-violet-500 flex flex-col justify-start gap-3 max-w-[450px] w-full">
         <JournalHeader />
         <JournalSpace
           setLoadHome={setLoadHome}

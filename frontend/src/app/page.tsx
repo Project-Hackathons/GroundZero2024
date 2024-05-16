@@ -10,7 +10,7 @@ const Page = () => {
   const [loading, setLoading] = useState(true);
   return (
     <div className="flex justify-center">
-      <div className="flex flex-col items-center min-h-screen bg-gradient-to-b from-violet-950 to-indigo-300 subpixel-antialiased gap-4 max-w-[450px] w-full">
+      <div className="flex flex-col items-center min-h-screen bg-gradient-to-b from-violet-800 to-violet-500 subpixel-antialiased gap-4 max-w-[450px] w-full">
         <Header />
         <CardList setLoading={setLoading} />
         <AddJournalBtn />
